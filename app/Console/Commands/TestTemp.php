@@ -37,12 +37,6 @@ class TestTemp extends Command
         $this->renderTree($tempFolder);
 
         $this->info('Temp folder size: '.$this->getDirectorySize($tempFolder));
-
-
-        $this->line('Backup temp folder tree:');
-        $this->renderTree(storage_path('app/backup-temp'));
-        $this->info('Location Backup Temp: ' . storage_path('app/backup-temp'));
-        $this->info('Backup temp folder size: '.$this->getDirectorySize(storage_path('app/backup-temp')));
     }
 
     private function renderTree(string $directory, string $prefix = ''): void
