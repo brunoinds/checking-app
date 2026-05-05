@@ -35,6 +35,8 @@ class TestTemp extends Command
         $this->info('Temp folder: '.$tempFolder);
         $this->line('Temp folder tree:');
         $this->renderTree($tempFolder);
+
+        $this->info('Temp folder size: '.$this->getDirectorySize($tempFolder));
     }
 
     private function renderTree(string $directory, string $prefix = ''): void
@@ -57,5 +59,16 @@ class TestTemp extends Command
                 $this->renderTree($path, $nextPrefix);
             }
         }
+    }
+
+    private function getDirectorySize(string $directory): string
+    {
+        $sizeOutput = shell_exec('du -sh '.escapeshellarg($directory).' 2>/dev/null');
+
+        if (! is_string($sizeOutput) || trim($sizeOutput) === '') {
+            return 'unavailable';
+        }
+
+        return explode("\t", trim($sizeOutput))[0];
     }
 }
